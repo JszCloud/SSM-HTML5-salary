@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.salary.mapper.LeaveMapper" >
+  <resultMap id="BaseResultMap" type="com.salary.pojo.Leave" >
+    <result column="leave_start_time" property="leaveStartTime" jdbcType="DATE" />
+    <result column="leave _end_time" property="leaveEndTime" jdbcType="DATE" />
+    <result column="leave_cause" property="leaveCause" jdbcType="VARCHAR" />
+    <result column="student_name" property="studentName" jdbcType="VARCHAR" />
+    <result column="teacher_name" property="teacherName" jdbcType="VARCHAR" />
+    <result column="class_id" property="classId" jdbcType="INTEGER" />
+    <result column="leave _flag" property="leaveFlag" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    leave_start_time, "leave _end_time", leave_cause, student_name, teacher_name, class_id, 
+    "leave _flag"
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.salary.pojo.LeaveExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from leave
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.salary.pojo.LeaveExample" >
+    delete from leave
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.salary.pojo.Leave" >
+    insert into leave (leave_start_time, "leave _end_time", leave_cause, 
+      student_name, teacher_name, class_id, 
+      "leave _flag")
+    values (#{leaveStartTime,jdbcType=DATE}, #{leaveEndTime,jdbcType=DATE}, #{leaveCause,jdbcType=VARCHAR}, 
+      #{studentName,jdbcType=VARCHAR}, #{teacherName,jdbcType=VARCHAR}, #{classId,jdbcType=INTEGER}, 
+      #{leaveFlag,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.salary.pojo.Leave" >
+    insert into leave
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="leaveStartTime != null" >
+        leave_start_time,
+      </if>
+      <if test="leaveEndTime != null" >
+        "leave _end_time",
+      </if>
+      <if test="leaveCause != null" >
+        leave_cause,
+      </if>
+      <if test="studentName != null" >
+        student_name,
+      </if>
+      <if test="teacherName != null" >
+        teacher_name,
+      </if>
+      <if test="classId != null" >
+        class_id,
+      </if>
+      <if test="leaveFlag != null" >
+        "leave _flag",
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="leaveStartTime != null" >
+        #{leaveStartTime,jdbcType=DATE},
+      </if>
+      <if test="leaveEndTime != null" >
+        #{leaveEndTime,jdbcType=DATE},
+      </if>
+      <if test="leaveCause != null" >
+        #{leaveCause,jdbcType=VARCHAR},
+      </if>
+      <if test="studentName != null" >
+        #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherName != null" >
+        #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="classId != null" >
+        #{classId,jdbcType=INTEGER},
+      </if>
+      <if test="leaveFlag != null" >
+        #{leaveFlag,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.salary.pojo.LeaveExample" resultType="java.lang.Integer" >
+    select count(*) from leave
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update leave
+    <set >
+      <if test="record.leaveStartTime != null" >
+        leave_start_time = #{record.leaveStartTime,jdbcType=DATE},
+      </if>
+      <if test="record.leaveEndTime != null" >
+        "leave _end_time" = #{record.leaveEndTime,jdbcType=DATE},
+      </if>
+      <if test="record.leaveCause != null" >
+        leave_cause = #{record.leaveCause,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentName != null" >
+        student_name = #{record.studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teacherName != null" >
+        teacher_name = #{record.teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classId != null" >
+        class_id = #{record.classId,jdbcType=INTEGER},
+      </if>
+      <if test="record.leaveFlag != null" >
+        "leave _flag" = #{record.leaveFlag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update leave
+    set leave_start_time = #{record.leaveStartTime,jdbcType=DATE},
+      "leave _end_time" = #{record.leaveEndTime,jdbcType=DATE},
+      leave_cause = #{record.leaveCause,jdbcType=VARCHAR},
+      student_name = #{record.studentName,jdbcType=VARCHAR},
+      teacher_name = #{record.teacherName,jdbcType=VARCHAR},
+      class_id = #{record.classId,jdbcType=INTEGER},
+      "leave _flag" = #{record.leaveFlag,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

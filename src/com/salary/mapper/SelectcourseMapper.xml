@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.salary.mapper.SelectcourseMapper" >
+  <resultMap id="BaseResultMap" type="com.salary.pojo.Selectcourse" >
+    <result column="selectCourse_id" property="selectcourseId" jdbcType="INTEGER" />
+    <result column="class_id" property="classId" jdbcType="INTEGER" />
+    <result column="course_id" property="courseId" jdbcType="INTEGER" />
+    <result column="selectCourse_year" property="selectcourseYear" jdbcType="VARCHAR" />
+    <result column="selectCourse_term" property="selectcourseTerm" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    selectCourse_id, class_id, course_id, selectCourse_year, selectCourse_term
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.salary.pojo.SelectcourseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from selectcourse
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.salary.pojo.SelectcourseExample" >
+    delete from selectcourse
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.salary.pojo.Selectcourse" >
+    insert into selectcourse (selectCourse_id, class_id, course_id, 
+      selectCourse_year, selectCourse_term)
+    values (#{selectcourseId,jdbcType=INTEGER}, #{classId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, 
+      #{selectcourseYear,jdbcType=VARCHAR}, #{selectcourseTerm,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.salary.pojo.Selectcourse" >
+    insert into selectcourse
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="selectcourseId != null" >
+        selectCourse_id,
+      </if>
+      <if test="classId != null" >
+        class_id,
+      </if>
+      <if test="courseId != null" >
+        course_id,
+      </if>
+      <if test="selectcourseYear != null" >
+        selectCourse_year,
+      </if>
+      <if test="selectcourseTerm != null" >
+        selectCourse_term,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="selectcourseId != null" >
+        #{selectcourseId,jdbcType=INTEGER},
+      </if>
+      <if test="classId != null" >
+        #{classId,jdbcType=INTEGER},
+      </if>
+      <if test="courseId != null" >
+        #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="selectcourseYear != null" >
+        #{selectcourseYear,jdbcType=VARCHAR},
+      </if>
+      <if test="selectcourseTerm != null" >
+        #{selectcourseTerm,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.salary.pojo.SelectcourseExample" resultType="java.lang.Integer" >
+    select count(*) from selectcourse
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update selectcourse
+    <set >
+      <if test="record.selectcourseId != null" >
+        selectCourse_id = #{record.selectcourseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.classId != null" >
+        class_id = #{record.classId,jdbcType=INTEGER},
+      </if>
+      <if test="record.courseId != null" >
+        course_id = #{record.courseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.selectcourseYear != null" >
+        selectCourse_year = #{record.selectcourseYear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.selectcourseTerm != null" >
+        selectCourse_term = #{record.selectcourseTerm,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update selectcourse
+    set selectCourse_id = #{record.selectcourseId,jdbcType=INTEGER},
+      class_id = #{record.classId,jdbcType=INTEGER},
+      course_id = #{record.courseId,jdbcType=INTEGER},
+      selectCourse_year = #{record.selectcourseYear,jdbcType=VARCHAR},
+      selectCourse_term = #{record.selectcourseTerm,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

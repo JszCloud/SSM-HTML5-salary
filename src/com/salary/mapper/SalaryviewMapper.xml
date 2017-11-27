@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.salary.mapper.SalaryviewMapper" >
+  <resultMap id="BaseResultMap" type="com.salary.pojo.Salaryview" >
+    <result column="class_id" property="classId" jdbcType="INTEGER" />
+    <result column="class_name" property="className" jdbcType="VARCHAR" />
+    <result column="course_id" property="courseId" jdbcType="INTEGER" />
+    <result column="course_NO" property="courseNo" jdbcType="VARCHAR" />
+    <result column="course_name" property="courseName" jdbcType="VARCHAR" />
+    <result column="student_name" property="studentName" jdbcType="VARCHAR" />
+    <result column="student_sex" property="studentSex" jdbcType="VARCHAR" />
+    <result column="salary_date" property="salaryDate" jdbcType="TIMESTAMP" />
+    <result column="salary_time" property="salaryTime" jdbcType="INTEGER" />
+    <result column="salary_data" property="salaryData" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    class_id, class_name, course_id, course_NO, course_name, student_name, student_sex, 
+    salary_date, salary_time, salary_data
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.salary.pojo.SalaryviewExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from salaryview
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.salary.pojo.SalaryviewExample" >
+    delete from salaryview
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.salary.pojo.Salaryview" >
+    insert into salaryview (class_id, class_name, course_id, 
+      course_NO, course_name, student_name, 
+      student_sex, salary_date, salary_time, 
+      salary_data)
+    values (#{classId,jdbcType=INTEGER}, #{className,jdbcType=VARCHAR}, #{courseId,jdbcType=INTEGER}, 
+      #{courseNo,jdbcType=VARCHAR}, #{courseName,jdbcType=VARCHAR}, #{studentName,jdbcType=VARCHAR}, 
+      #{studentSex,jdbcType=VARCHAR}, #{salaryDate,jdbcType=TIMESTAMP}, #{salaryTime,jdbcType=INTEGER}, 
+      #{salaryData,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.salary.pojo.Salaryview" >
+    insert into salaryview
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="classId != null" >
+        class_id,
+      </if>
+      <if test="className != null" >
+        class_name,
+      </if>
+      <if test="courseId != null" >
+        course_id,
+      </if>
+      <if test="courseNo != null" >
+        course_NO,
+      </if>
+      <if test="courseName != null" >
+        course_name,
+      </if>
+      <if test="studentName != null" >
+        student_name,
+      </if>
+      <if test="studentSex != null" >
+        student_sex,
+      </if>
+      <if test="salaryDate != null" >
+        salary_date,
+      </if>
+      <if test="salaryTime != null" >
+        salary_time,
+      </if>
+      <if test="salaryData != null" >
+        salary_data,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="classId != null" >
+        #{classId,jdbcType=INTEGER},
+      </if>
+      <if test="className != null" >
+        #{className,jdbcType=VARCHAR},
+      </if>
+      <if test="courseId != null" >
+        #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="courseNo != null" >
+        #{courseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="courseName != null" >
+        #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentName != null" >
+        #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentSex != null" >
+        #{studentSex,jdbcType=VARCHAR},
+      </if>
+      <if test="salaryDate != null" >
+        #{salaryDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="salaryTime != null" >
+        #{salaryTime,jdbcType=INTEGER},
+      </if>
+      <if test="salaryData != null" >
+        #{salaryData,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.salary.pojo.SalaryviewExample" resultType="java.lang.Integer" >
+    select count(*) from salaryview
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update salaryview
+    <set >
+      <if test="record.classId != null" >
+        class_id = #{record.classId,jdbcType=INTEGER},
+      </if>
+      <if test="record.className != null" >
+        class_name = #{record.className,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courseId != null" >
+        course_id = #{record.courseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.courseNo != null" >
+        course_NO = #{record.courseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courseName != null" >
+        course_name = #{record.courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentName != null" >
+        student_name = #{record.studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentSex != null" >
+        student_sex = #{record.studentSex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salaryDate != null" >
+        salary_date = #{record.salaryDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.salaryTime != null" >
+        salary_time = #{record.salaryTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.salaryData != null" >
+        salary_data = #{record.salaryData,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update salaryview
+    set class_id = #{record.classId,jdbcType=INTEGER},
+      class_name = #{record.className,jdbcType=VARCHAR},
+      course_id = #{record.courseId,jdbcType=INTEGER},
+      course_NO = #{record.courseNo,jdbcType=VARCHAR},
+      course_name = #{record.courseName,jdbcType=VARCHAR},
+      student_name = #{record.studentName,jdbcType=VARCHAR},
+      student_sex = #{record.studentSex,jdbcType=VARCHAR},
+      salary_date = #{record.salaryDate,jdbcType=TIMESTAMP},
+      salary_time = #{record.salaryTime,jdbcType=INTEGER},
+      salary_data = #{record.salaryData,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

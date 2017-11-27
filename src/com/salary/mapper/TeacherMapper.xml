@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.salary.mapper.TeacherMapper" >
+  <resultMap id="BaseResultMap" type="com.salary.pojo.Teacher" >
+    <id column="teacher_id" property="teacherId" jdbcType="INTEGER" />
+    <result column="teacher_NO" property="teacherNo" jdbcType="VARCHAR" />
+    <result column="teacher_name" property="teacherName" jdbcType="VARCHAR" />
+    <result column="teacher_sex" property="teacherSex" jdbcType="VARCHAR" />
+    <result column="teacher_office" property="teacherOffice" jdbcType="VARCHAR" />
+    <result column="teacher_phone" property="teacherPhone" jdbcType="VARCHAR" />
+    <result column="teacher_qq" property="teacherQq" jdbcType="VARCHAR" />
+    <result column="teacher_email" property="teacherEmail" jdbcType="VARCHAR" />
+    <result column="teacher_password" property="teacherPassword" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    teacher_id, teacher_NO, teacher_name, teacher_sex, teacher_office, teacher_phone, 
+    teacher_qq, teacher_email, teacher_password
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.salary.pojo.TeacherExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from teacher
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from teacher
+    where teacher_id = #{teacherId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from teacher
+    where teacher_id = #{teacherId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.salary.pojo.TeacherExample" >
+    delete from teacher
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.salary.pojo.Teacher" >
+    insert into teacher (teacher_id, teacher_NO, teacher_name, 
+      teacher_sex, teacher_office, teacher_phone, 
+      teacher_qq, teacher_email, teacher_password
+      )
+    values (#{teacherId,jdbcType=INTEGER}, #{teacherNo,jdbcType=VARCHAR}, #{teacherName,jdbcType=VARCHAR}, 
+      #{teacherSex,jdbcType=VARCHAR}, #{teacherOffice,jdbcType=VARCHAR}, #{teacherPhone,jdbcType=VARCHAR}, 
+      #{teacherQq,jdbcType=VARCHAR}, #{teacherEmail,jdbcType=VARCHAR}, #{teacherPassword,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.salary.pojo.Teacher" >
+    insert into teacher
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="teacherId != null" >
+        teacher_id,
+      </if>
+      <if test="teacherNo != null" >
+        teacher_NO,
+      </if>
+      <if test="teacherName != null" >
+        teacher_name,
+      </if>
+      <if test="teacherSex != null" >
+        teacher_sex,
+      </if>
+      <if test="teacherOffice != null" >
+        teacher_office,
+      </if>
+      <if test="teacherPhone != null" >
+        teacher_phone,
+      </if>
+      <if test="teacherQq != null" >
+        teacher_qq,
+      </if>
+      <if test="teacherEmail != null" >
+        teacher_email,
+      </if>
+      <if test="teacherPassword != null" >
+        teacher_password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="teacherId != null" >
+        #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="teacherNo != null" >
+        #{teacherNo,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherName != null" >
+        #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherSex != null" >
+        #{teacherSex,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherOffice != null" >
+        #{teacherOffice,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherPhone != null" >
+        #{teacherPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherQq != null" >
+        #{teacherQq,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherEmail != null" >
+        #{teacherEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherPassword != null" >
+        #{teacherPassword,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.salary.pojo.TeacherExample" resultType="java.lang.Integer" >
+    select count(*) from teacher
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update teacher
+    <set >
+      <if test="record.teacherId != null" >
+        teacher_id = #{record.teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="record.teacherNo != null" >
+        teacher_NO = #{record.teacherNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teacherName != null" >
+        teacher_name = #{record.teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teacherSex != null" >
+        teacher_sex = #{record.teacherSex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teacherOffice != null" >
+        teacher_office = #{record.teacherOffice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teacherPhone != null" >
+        teacher_phone = #{record.teacherPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teacherQq != null" >
+        teacher_qq = #{record.teacherQq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teacherEmail != null" >
+        teacher_email = #{record.teacherEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teacherPassword != null" >
+        teacher_password = #{record.teacherPassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update teacher
+    set teacher_id = #{record.teacherId,jdbcType=INTEGER},
+      teacher_NO = #{record.teacherNo,jdbcType=VARCHAR},
+      teacher_name = #{record.teacherName,jdbcType=VARCHAR},
+      teacher_sex = #{record.teacherSex,jdbcType=VARCHAR},
+      teacher_office = #{record.teacherOffice,jdbcType=VARCHAR},
+      teacher_phone = #{record.teacherPhone,jdbcType=VARCHAR},
+      teacher_qq = #{record.teacherQq,jdbcType=VARCHAR},
+      teacher_email = #{record.teacherEmail,jdbcType=VARCHAR},
+      teacher_password = #{record.teacherPassword,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.salary.pojo.Teacher" >
+    update teacher
+    <set >
+      <if test="teacherNo != null" >
+        teacher_NO = #{teacherNo,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherName != null" >
+        teacher_name = #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherSex != null" >
+        teacher_sex = #{teacherSex,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherOffice != null" >
+        teacher_office = #{teacherOffice,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherPhone != null" >
+        teacher_phone = #{teacherPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherQq != null" >
+        teacher_qq = #{teacherQq,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherEmail != null" >
+        teacher_email = #{teacherEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherPassword != null" >
+        teacher_password = #{teacherPassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where teacher_id = #{teacherId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.salary.pojo.Teacher" >
+    update teacher
+    set teacher_NO = #{teacherNo,jdbcType=VARCHAR},
+      teacher_name = #{teacherName,jdbcType=VARCHAR},
+      teacher_sex = #{teacherSex,jdbcType=VARCHAR},
+      teacher_office = #{teacherOffice,jdbcType=VARCHAR},
+      teacher_phone = #{teacherPhone,jdbcType=VARCHAR},
+      teacher_qq = #{teacherQq,jdbcType=VARCHAR},
+      teacher_email = #{teacherEmail,jdbcType=VARCHAR},
+      teacher_password = #{teacherPassword,jdbcType=VARCHAR}
+    where teacher_id = #{teacherId,jdbcType=INTEGER}
+  </update>
+</mapper>

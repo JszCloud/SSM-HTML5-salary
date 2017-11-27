@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.salary.mapper.CallnamesMapper" >
+  <resultMap id="BaseResultMap" type="com.salary.pojo.Callnames" >
+    <result column="admin_id" property="adminId" jdbcType="INTEGER" />
+    <result column="teacher_id" property="teacherId" jdbcType="INTEGER" />
+    <result column="course_id" property="courseId" jdbcType="INTEGER" />
+    <result column="class_id" property="classId" jdbcType="INTEGER" />
+    <result column="student_id" property="studentId" jdbcType="INTEGER" />
+    <result column="student_NO" property="studentNo" jdbcType="VARCHAR" />
+    <result column="student_name" property="studentName" jdbcType="VARCHAR" />
+    <result column="teacherCourse_year" property="teachercourseYear" jdbcType="VARCHAR" />
+    <result column="teacherCourse_term" property="teachercourseTerm" jdbcType="INTEGER" />
+    <result column="student_sex" property="studentSex" jdbcType="VARCHAR" />
+    <result column="salary_date" property="salaryDate" jdbcType="TIMESTAMP" />
+    <result column="salary_time" property="salaryTime" jdbcType="INTEGER" />
+    <result column="salary_data" property="salaryData" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    admin_id, teacher_id, course_id, class_id, student_id, student_NO, student_name, 
+    teacherCourse_year, teacherCourse_term, student_sex, salary_date, salary_time, salary_data
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.salary.pojo.CallnamesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from callnames
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.salary.pojo.CallnamesExample" >
+    delete from callnames
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.salary.pojo.Callnames" >
+    insert into callnames (admin_id, teacher_id, course_id, 
+      class_id, student_id, student_NO, 
+      student_name, teacherCourse_year, teacherCourse_term, 
+      student_sex, salary_date, salary_time, 
+      salary_data)
+    values (#{adminId,jdbcType=INTEGER}, #{teacherId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, 
+      #{classId,jdbcType=INTEGER}, #{studentId,jdbcType=INTEGER}, #{studentNo,jdbcType=VARCHAR}, 
+      #{studentName,jdbcType=VARCHAR}, #{teachercourseYear,jdbcType=VARCHAR}, #{teachercourseTerm,jdbcType=INTEGER}, 
+      #{studentSex,jdbcType=VARCHAR}, #{salaryDate,jdbcType=TIMESTAMP}, #{salaryTime,jdbcType=INTEGER}, 
+      #{salaryData,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.salary.pojo.Callnames" >
+    insert into callnames
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="adminId != null" >
+        admin_id,
+      </if>
+      <if test="teacherId != null" >
+        teacher_id,
+      </if>
+      <if test="courseId != null" >
+        course_id,
+      </if>
+      <if test="classId != null" >
+        class_id,
+      </if>
+      <if test="studentId != null" >
+        student_id,
+      </if>
+      <if test="studentNo != null" >
+        student_NO,
+      </if>
+      <if test="studentName != null" >
+        student_name,
+      </if>
+      <if test="teachercourseYear != null" >
+        teacherCourse_year,
+      </if>
+      <if test="teachercourseTerm != null" >
+        teacherCourse_term,
+      </if>
+      <if test="studentSex != null" >
+        student_sex,
+      </if>
+      <if test="salaryDate != null" >
+        salary_date,
+      </if>
+      <if test="salaryTime != null" >
+        salary_time,
+      </if>
+      <if test="salaryData != null" >
+        salary_data,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="adminId != null" >
+        #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="teacherId != null" >
+        #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="courseId != null" >
+        #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="classId != null" >
+        #{classId,jdbcType=INTEGER},
+      </if>
+      <if test="studentId != null" >
+        #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="studentNo != null" >
+        #{studentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="studentName != null" >
+        #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="teachercourseYear != null" >
+        #{teachercourseYear,jdbcType=VARCHAR},
+      </if>
+      <if test="teachercourseTerm != null" >
+        #{teachercourseTerm,jdbcType=INTEGER},
+      </if>
+      <if test="studentSex != null" >
+        #{studentSex,jdbcType=VARCHAR},
+      </if>
+      <if test="salaryDate != null" >
+        #{salaryDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="salaryTime != null" >
+        #{salaryTime,jdbcType=INTEGER},
+      </if>
+      <if test="salaryData != null" >
+        #{salaryData,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.salary.pojo.CallnamesExample" resultType="java.lang.Integer" >
+    select count(*) from callnames
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update callnames
+    <set >
+      <if test="record.adminId != null" >
+        admin_id = #{record.adminId,jdbcType=INTEGER},
+      </if>
+      <if test="record.teacherId != null" >
+        teacher_id = #{record.teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="record.courseId != null" >
+        course_id = #{record.courseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.classId != null" >
+        class_id = #{record.classId,jdbcType=INTEGER},
+      </if>
+      <if test="record.studentId != null" >
+        student_id = #{record.studentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.studentNo != null" >
+        student_NO = #{record.studentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentName != null" >
+        student_name = #{record.studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teachercourseYear != null" >
+        teacherCourse_year = #{record.teachercourseYear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teachercourseTerm != null" >
+        teacherCourse_term = #{record.teachercourseTerm,jdbcType=INTEGER},
+      </if>
+      <if test="record.studentSex != null" >
+        student_sex = #{record.studentSex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salaryDate != null" >
+        salary_date = #{record.salaryDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.salaryTime != null" >
+        salary_time = #{record.salaryTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.salaryData != null" >
+        salary_data = #{record.salaryData,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update callnames
+    set admin_id = #{record.adminId,jdbcType=INTEGER},
+      teacher_id = #{record.teacherId,jdbcType=INTEGER},
+      course_id = #{record.courseId,jdbcType=INTEGER},
+      class_id = #{record.classId,jdbcType=INTEGER},
+      student_id = #{record.studentId,jdbcType=INTEGER},
+      student_NO = #{record.studentNo,jdbcType=VARCHAR},
+      student_name = #{record.studentName,jdbcType=VARCHAR},
+      teacherCourse_year = #{record.teachercourseYear,jdbcType=VARCHAR},
+      teacherCourse_term = #{record.teachercourseTerm,jdbcType=INTEGER},
+      student_sex = #{record.studentSex,jdbcType=VARCHAR},
+      salary_date = #{record.salaryDate,jdbcType=TIMESTAMP},
+      salary_time = #{record.salaryTime,jdbcType=INTEGER},
+      salary_data = #{record.salaryData,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
